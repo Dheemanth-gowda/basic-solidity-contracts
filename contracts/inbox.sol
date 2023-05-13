@@ -4,7 +4,7 @@ pragma solidity ^0.4.17;
 // contract code will go here
 contract Inbox {
     string public message;
-    constructor(string initialMessage) public {
+    function Inbox(string initialMessage) public {
         message = initialMessage;
     }
 
