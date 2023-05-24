@@ -10,8 +10,10 @@ library which has all the function needed to connect the blockchain network.
 */
 let accounts;
 let inbox;
+const initialMessageString = 'Hi there!' ;
 
 beforeEach(async () => {
+
   // Get a list of all accounts
   //get list of all the accounts from local provider from Ganache.
   // eth here is a particular module.
@@ -27,18 +29,28 @@ beforeEach(async () => {
   inbox = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({                                           // This code doesn't deploy to the byteCode to network. It only creates an 
       data: bytecode,                                   // object which can then be deployed to the network.
-      arguments: ["Hi there!"],
+      arguments: [initialMessageString],
     })
-    .send({ from: accounts[0], gas: "1000000" });      // This triggers the contract creation that is from web3 to network.
-                                                      // It tells web3 to send a transaction that creates the contract.
+    .send({ from: accounts[0], gas: "1000000" });      // This triggers the contract creation that is from web3 to network.                                                      // It tells web3 to send a transaction that creates the contract.
 });
 
 describe("Inbox", () => {
-  it("deploys a contract", () => {
-    console.log(inbox);
+  it("Contracy deployment is successful", () => {
+    assert.ok(inbox.options.address)                // Check if this value is present only then this test will pass.
   });
-});
 
+  it('Initial message is set to default', async ()=>{
+    const message= await inbox.methods.message().call();  // Methods is object that has all the public functions in the contracts.
+                                                          // call() it is used to customize the transaction we send to the network.
+    assert.equal(message, initialMessageString);
+  })
+
+  it('Can change the message set', async () =>{
+    await inbox.methods.setMessage('Updated value , Bye!').send({ from : accounts[0] });
+    const message= await inbox.methods.message().call(); 
+    assert.equal(message, 'Updated value , Bye!')
+  } )
+});
 
 /* Boiler-plate : Adding sample test cases to check the working*/
 // class Animals{
