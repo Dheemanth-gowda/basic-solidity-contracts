@@ -23,8 +23,8 @@ beforeEach(async () => {
   /*
    web3.eth.Contract(JSON.parse(interface)) => Contract is a constructor fnc and it allows to interact with the existing contracts in the chain.
                                             => The first arugument to the constructor is the ABI -> ABI allows connection with solidity and js.
-                                            => The interface passed should be a javascript oject hence need to parse before passing.
-   .deploy({})                                => This line tells the web3 that we want to push a new contract.                                            
+                                            => The interface passed should be a javascript object hence need to parse before passing.
+   .deploy({})                              => This line tells the web3 that we want to push a new contract.                                            
   */
   inbox = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({                                           // This code doesn't deploy to the byteCode to network. It only creates an 
@@ -40,14 +40,14 @@ describe("Inbox", () => {
   });
 
   it('Initial message is set to default', async ()=>{
-    const message= await inbox.methods.message().call();  // Methods is object that has all the public functions in the contracts.
+    const message = await inbox.methods.message().call();  // Methods is object that has all the public functions in the contracts.
                                                           // call() it is used to customize the transaction we send to the network.
     assert.equal(message, initialMessageString);
   })
 
   it('Can change the message set', async () =>{
     await inbox.methods.setMessage('Updated value , Bye!').send({ from : accounts[0] });
-    const message= await inbox.methods.message().call(); 
+    const message = await inbox.methods.message().call(); 
     assert.equal(message, 'Updated value , Bye!')
   } )
 });
