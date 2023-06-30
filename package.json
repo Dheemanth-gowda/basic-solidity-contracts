@@ -1,5 +1,17 @@
 {
-  "dependencies": {
-    "solc": "^0.4.17"
-  }
+    "name": "inbox",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "author": "Dheemanth M D",
+    "license": "ISC",
+    "dependencies": {
+        "ganache-cli": "^6.12.2",
+        "mocha": "^10.2.0",
+        "solc": "^0.4.17",
+        "web3": "^1.10.0"
+    }
 }

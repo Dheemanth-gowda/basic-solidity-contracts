@@ -1,0 +1,10 @@
+Mocha starts (flows downwards)
+   ||
+   || 
+Deploy a fresh contracts                    <========<
+   ||                                                ||
+   ||                                                ||  
+Change the values and manipulate the contract        || 
+   ||                                                ||
+   ||                                                ||
+ Assertion about the contact  ====================
